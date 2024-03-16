@@ -25,6 +25,10 @@ namespace AdManageWeb.Controllers
         {
             return View();
         }
+        public IActionResult TestClient()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
 		{

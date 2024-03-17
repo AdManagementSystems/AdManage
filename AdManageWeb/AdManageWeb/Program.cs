@@ -43,7 +43,7 @@ namespace AdManageWeb
 
 			app.MapControllerRoute(
 				name: "default",
-				pattern: "{controller=Home}/{action=Test}/{id?}");
+				pattern: "{controller=Default}/{action=index}/{id?}");
 			app.MapRazorPages();
 
 			app.Run();

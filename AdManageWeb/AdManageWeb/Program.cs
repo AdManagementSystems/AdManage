@@ -48,8 +48,16 @@ namespace AdManageWeb
 
             app.MapControllerRoute(
             name: "areas",
-            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-);
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "admin",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+            });
+
+
 
             app.Run();
 

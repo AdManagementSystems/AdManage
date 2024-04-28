@@ -8,6 +8,7 @@ namespace AdManage.Application.DTOs
 {
     public class PackageDTO
     {
+        public Guid Id { get; set; }
         public string Description { get; set; }
         public long Price { get; set; }
         public string Image { get; set; }

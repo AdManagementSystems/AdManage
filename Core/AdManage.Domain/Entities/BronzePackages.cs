@@ -9,7 +9,6 @@ namespace AdManage.Domain.Entities
 {
     public class BronzePackages:PackagesEntityBase
     {
-
         public List<Reservation> Reservations { get; set; }
     }
 }

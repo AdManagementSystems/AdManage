@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdManage.Application.DTOs
+namespace AdManage.Application.Features.CQRS.Commands
 {
-    public class CreatePackageDTO
+    public class CreateBronzeCommand
     {
+        public int Id { get; set; }
         public string Description { get; set; }
         public long Price { get; set; }
         public string Image { get; set; }

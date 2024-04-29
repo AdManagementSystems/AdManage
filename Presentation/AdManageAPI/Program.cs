@@ -1,10 +1,10 @@
+
 using AdManage.Application.Features.CQRS.Handlers;
 using AdManage.Application.Interfaces;
 using AdManage.Persistence.DbContexts;
 using AdManage.Persistence.Repositories;
-using Microsoft.EntityFrameworkCore;
 
-namespace AdManageWebs
+namespace AdManageAPI
 {
     public class Program
     {
@@ -12,7 +12,10 @@ namespace AdManageWebs
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddHttpClient();
+            // Add services to the container.
+
+            builder.Services.AddControllers();
+
 
             builder.Services.AddCors(opt =>
             {
@@ -36,46 +39,27 @@ namespace AdManageWebs
             builder.Services.AddScoped<UpdateBronzeCommandHandler>();
             builder.Services.AddScoped<RemoveBronzeCommandHandler>();
 
-
-
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseCors("CorsPolicy");
 
-            app.UseRouting();
+            app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
 
-
-
-            app.MapControllerRoute(
-                name: "areas",
-                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-            );
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                  name: "areas",
-                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
-            });
+            app.MapControllers();
 
             app.Run();
         }

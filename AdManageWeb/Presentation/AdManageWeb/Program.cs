@@ -1,3 +1,7 @@
+using AdManage.Application.Features.CQRS.Handlers;
+using AdManage.Application.Interfaces;
+using AdManage.Persistence.DbContexts;
+using AdManage.Persistence.Repositories;
 using AdManageWeb.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

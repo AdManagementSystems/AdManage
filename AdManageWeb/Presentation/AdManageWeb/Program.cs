@@ -10,24 +10,39 @@ namespace AdManageWeb
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+            builder.Services.AddHttpClient();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.Services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", builder =>
+                {
+                    builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .SetIsOriginAllowed((host) => true)
+                    .AllowCredentials();
+                });
+            });
+
+            builder.Services.AddScoped<AdManageDbContext>();
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+            builder.Services.AddScoped(typeof(IBronzeRepository), typeof(BronzeRepository));
+
+            builder.Services.AddScoped<GetBronzeQueryHandler>();
+            builder.Services.AddScoped<GetBronzeByIdQueryHandler>();
+            builder.Services.AddScoped<CreateBronzeCommandHandler>();
+            builder.Services.AddScoped<UpdateBronzeCommandHandler>();
+            builder.Services.AddScoped<RemoveBronzeCommandHandler>();
+
+
+
+            // Add services to the container.
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseMigrationsEndPoint();
-            }
-            else
+            if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -43,24 +58,25 @@ namespace AdManageWeb
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=index}/{id?}");
-            app.MapRazorPages();
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
 
             app.MapControllerRoute(
-            name: "areas",
-            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                name: "areas",
+                pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+            );
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "admin",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                  name: "areas",
+                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
             });
 
-
-
             app.Run();
-
         }
     }
+
 }

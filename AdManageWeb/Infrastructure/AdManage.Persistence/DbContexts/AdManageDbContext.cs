@@ -17,5 +17,6 @@ namespace AdManage.Persistence.DbContexts
             optionsBuilder.UseSqlServer("Server=localhost;Database=OnionAdManageDb;Integrated Security=true;TrustServerCertificate=true;");
         }
         public DbSet<BronzePackages> BronzePackages { get; set; }
+        public DbSet<GoldPackages> GoldPackages { get; set; }
     }
 }

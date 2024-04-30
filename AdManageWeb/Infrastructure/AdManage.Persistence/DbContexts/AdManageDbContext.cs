@@ -12,6 +12,10 @@ namespace AdManage.Persistence.DbContexts
 {
     public class AdManageDbContext:DbContext
     {
+        public AdManageDbContext(DbContextOptions<AdManageDbContext> options)
+        : base(options)
+        {
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=localhost;Database=OnionAdManageDb;Integrated Security=true;TrustServerCertificate=true;");

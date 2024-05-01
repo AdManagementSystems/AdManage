@@ -1,5 +1,6 @@
-﻿using AdManage.Domain.Common;
-using AdManage.Domain.Entities;
+﻿using AdManage.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -8,14 +9,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace AdManage.Persistence.DbContexts
 {
-    public class AdManageDbContext:DbContext
+    public class AdManageDbContext : IdentityDbContext<User, Role, Guid>
     {
-        public AdManageDbContext(DbContextOptions<AdManageDbContext> options)
-        : base(options)
+        public AdManageDbContext()
+        : base()
         {
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=localhost;Database=OnionAdManageDb;Integrated Security=true;TrustServerCertificate=true;");
@@ -23,4 +26,5 @@ namespace AdManage.Persistence.DbContexts
         public DbSet<BronzePackages> BronzePackages { get; set; }
         public DbSet<GoldPackages> GoldPackages { get; set; }
     }
+  
 }

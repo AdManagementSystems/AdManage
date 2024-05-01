@@ -40,11 +40,10 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Data\" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\AdManage.Application\AdManage.Application.csproj" />
-    <ProjectReference Include="..\..\Core\AdManage.Domain\AdManage.Domain.csproj" />
     <ProjectReference Include="..\..\Infrastructure\AdManage.Persistence\AdManage.Persistence.csproj" />
   </ItemGroup>
 

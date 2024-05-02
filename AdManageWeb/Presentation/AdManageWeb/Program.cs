@@ -37,12 +37,30 @@ namespace AdManageWeb
             // Repository ve Handler'ları ekleyin
             builder.Services.AddScoped<AdManageDbContext>();
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
             builder.Services.AddScoped(typeof(IBronzeRepository), typeof(BronzeRepository));
+
             builder.Services.AddScoped<GetBronzeQueryHandler>();
             builder.Services.AddScoped<GetBronzeByIdQueryHandler>();
             builder.Services.AddScoped<CreateBronzeCommandHandler>();
             builder.Services.AddScoped<UpdateBronzeCommandHandler>();
             builder.Services.AddScoped<RemoveBronzeCommandHandler>();
+
+            builder.Services.AddScoped(typeof(IGoldRepository), typeof(GoldRepository));
+
+            builder.Services.AddScoped<GetGoldQueryHandler>();
+            builder.Services.AddScoped<GetGoldByIdQueryHandler>();
+            builder.Services.AddScoped<CreateGoldCommandHandler>();
+            builder.Services.AddScoped<UpdateGoldCommandHandler>();
+            builder.Services.AddScoped<RemoveGoldCommandHandler>();
+
+            builder.Services.AddScoped(typeof(ISilverRepository), typeof(SilverRepository));
+
+            builder.Services.AddScoped<GetSilverQueryHandler>();
+            builder.Services.AddScoped<GetSilverByIdQueryHandler>();
+            builder.Services.AddScoped<CreateSilverCommandHandler>();
+            builder.Services.AddScoped<UpdateSilverCommandHandler>();
+            builder.Services.AddScoped<RemoveSilverCommandHandler>();
 
             var app = builder.Build();
 

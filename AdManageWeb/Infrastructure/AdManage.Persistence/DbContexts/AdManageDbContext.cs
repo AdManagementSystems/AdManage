@@ -25,6 +25,7 @@ namespace AdManage.Persistence.DbContexts
         }
         public DbSet<BronzePackages> BronzePackages { get; set; }
         public DbSet<GoldPackages> GoldPackages { get; set; }
+        public DbSet<SilverPackages> SilverPackages { get; set; }
     }
   
 }

@@ -5,6 +5,8 @@ using AdManage.Application.Features.CQRS.Handlers;
 using AdManage.Application.Interfaces;
 using AdManage.Persistence.DbContexts;
 using AdManage.Persistence.Repositories;
+using AdManage.Domain.Entities;
+using AdManageWeb.Models;
 
 namespace AdManageWeb
 {
@@ -18,8 +20,14 @@ namespace AdManageWeb
             builder.Services.AddDbContext<AdManageDbContext>();
 
             // Identity servislerini ekleyin ve kullanıcı/rol depolama için DbContext'i belirtin
-            builder.Services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<AdManageDbContext>();
+            //builder.Services.AddDefaultIdentity<IdentityUser>()
+            //    .AddEntityFrameworkStores<AdManageDbContext>();
+
+
+
+            builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<AdManageDbContext>().AddErrorDescriber<CustomIdentityValidator>().AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider).AddEntityFrameworkStores<AdManageDbContext>();
+
+
             // Diğer servisleri ekleyin
             builder.Services.AddControllersWithViews();
             builder.Services.AddHttpClient();
@@ -96,7 +104,7 @@ namespace AdManageWeb
                   pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
             });
 
-            app.MapRazorPages();
+            //app.MapRazorPages();
 
             app.Run();
 

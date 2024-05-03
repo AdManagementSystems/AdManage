@@ -4,13 +4,14 @@
 	Layout = "~/Views/Shared/_UILayout.cshtml";
 }
 
-<section class="w3l-grids-3 py-5">
-	<div class="container py-md-5">
-		<div class="title-content text-left mb-lg-5 mb-4">
-			<!--<h6 class="sub-title">Visit</h6>-->
-			<h3 class="hny-title">Gold Paketlerimiz</h3>
-		</div>
-		<div class="row bottom-ab-grids">
+
+<section class="grids-1 py-5">
+    <div class="container py-md-5">
+        <div class="title-content text-left mb-lg-5 mb-4">
+            <!--<h6 class="sub-title">Visit</h6>-->
+            <h3 class="hny-title">Platinum Paketlerimiz</h3>
+        </div>
+        <div class="row bottom-ab-grids">
             @foreach (var item in Model)
             {
                 <div class="col-lg-4 col-md-4 col-6">
@@ -36,6 +37,6 @@
 
             }
 
-		</div>
-	</div>
+        </div>
+    </div>
 </section>

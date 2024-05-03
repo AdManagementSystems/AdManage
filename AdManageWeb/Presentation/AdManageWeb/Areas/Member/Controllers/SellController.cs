@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace AdManageWeb.Areas.Member
+namespace AdManageWeb.Areas.Member.Controllers
 {
     [Area("Member")]
-    public class DashBoardController : Controller
+    public class SellController : Controller
     {
         public IActionResult Index()
         {

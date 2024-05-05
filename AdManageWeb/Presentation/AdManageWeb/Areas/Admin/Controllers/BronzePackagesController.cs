@@ -1,30 +1,26 @@
-﻿
-using AdManage.Application.Features.CQRS.Commands;
+﻿using AdManage.Application.Features.CQRS.Commands;
 using AdManage.Application.Features.CQRS.Handlers;
-using AdManage.Application.Interfaces;
-using AdManage.Domain.Entities;
+using AdManageWeb.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AdManageWeb.Controllers
+namespace AdManageWeb.Areas.Admin.Controllers
 {
-    public class BronzePackagesController : Controller
+    [Area("Admin")]
+    public class BronzePackagesControler : Controller
     {
         private readonly CreateBronzeCommandHandler _createBronzeCommandHandler;
         private readonly GetBronzeByIdQueryHandler _getBronzeByIdQueryHandler;
         private readonly GetBronzeQueryHandler _getBronzeQueryHandler;
         private readonly UpdateBronzeCommandHandler _updateBronzeCommandHandler;
         private readonly RemoveBronzeCommandHandler _removeBronzeCommandHandler;
-        private readonly IBronzeRepository _bronzerepository;
 
-
-        public BronzePackagesController(CreateBronzeCommandHandler createBronzeCommandHandler, GetBronzeByIdQueryHandler getBronzeByIdQueryHandler, GetBronzeQueryHandler getBronzeQueryHandler, UpdateBronzeCommandHandler updateBronzeCommandHandler, RemoveBronzeCommandHandler removeBronzeCommandHandler, IBronzeRepository bronzerepository)
+        public BronzePackagesControler(CreateBronzeCommandHandler createBronzeCommandHandler, GetBronzeByIdQueryHandler getBronzeByIdQueryHandler, GetBronzeQueryHandler getBronzeQueryHandler, UpdateBronzeCommandHandler updateBronzeCommandHandler, RemoveBronzeCommandHandler removeBronzeCommandHandler)
         {
             _createBronzeCommandHandler = createBronzeCommandHandler;
             _getBronzeByIdQueryHandler = getBronzeByIdQueryHandler;
             _getBronzeQueryHandler = getBronzeQueryHandler;
             _updateBronzeCommandHandler = updateBronzeCommandHandler;
             _removeBronzeCommandHandler = removeBronzeCommandHandler;
-            _bronzerepository = bronzerepository;
         }
 
         public async Task<IActionResult> Index()
@@ -44,6 +40,23 @@ namespace AdManageWeb.Controllers
 
             return View(bronzePackagesList);
         }
+        [HttpGet]
+        public IActionResult AddBronze()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> AddBronze(CreateBronzeCommand command)
+        {
+            await _createBronzeCommandHandler.Handle(command);
+            return RedirectToAction("Index");
+        }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBronze(int id)
+        {
+            await _removeBronzeCommandHandler.Handle(new RemoveBronzeCommand(id));
+            return RedirectToAction("Index");
+        }
     }
 }

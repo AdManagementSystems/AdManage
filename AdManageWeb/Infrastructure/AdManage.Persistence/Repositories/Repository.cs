@@ -13,14 +13,26 @@ namespace AdManage.Persistence.Repositories
     public class Repository<T> : IRepository<T> where T : class
     {
         private readonly AdManageDbContext _adManageDbContext;
-        public Repository(AdManageDbContext carBookContext)
+
+        public Repository(AdManageDbContext adManageDbContext)
         {
-            _adManageDbContext = carBookContext;
+            _adManageDbContext = adManageDbContext;
         }
+
         public async Task CreateAsync(T entity)
         {
-            _adManageDbContext.Set<T>().Add(entity);
-            await _adManageDbContext.SaveChangesAsync();
+            try
+            {
+                _adManageDbContext.Set<T>().Add(entity);
+                await _adManageDbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                // Veritabanı işlemi sırasında bir hata oluştuğunda yapılacak işlemler
+                Console.WriteLine("Veritabanı hatası: " + ex.Message);
+                // İstediğiniz gibi hata işleme stratejisini buraya ekleyin
+                throw; // Hatanın daha yukarıya fırlatılması, işlemi kullanan kodun uygun şekilde işlem yapmasını sağlar
+            }
         }
 
         public async Task<List<T>> GetAllAsync()
@@ -40,14 +52,34 @@ namespace AdManage.Persistence.Repositories
 
         public async Task RemoveAsync(T entity)
         {
-            _adManageDbContext.Set<T>().Remove(entity);
-            await _adManageDbContext.SaveChangesAsync();
+            try
+            {
+                _adManageDbContext.Set<T>().Remove(entity);
+                await _adManageDbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                // Veritabanı işlemi sırasında bir hata oluştuğunda yapılacak işlemler
+                Console.WriteLine("Veritabanı hatası: " + ex.Message);
+                // İstediğiniz gibi hata işleme stratejisini buraya ekleyin
+                throw; // Hatanın daha yukarıya fırlatılması, işlemi kullanan kodun uygun şekilde işlem yapmasını sağlar
+            }
         }
 
         public async Task UpdateAsync(T entity)
         {
-            _adManageDbContext.Set<T>().Update(entity);
-            await _adManageDbContext.SaveChangesAsync();
+            try
+            {
+                _adManageDbContext.Set<T>().Update(entity);
+                await _adManageDbContext.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                // Veritabanı işlemi sırasında bir hata oluştuğunda yapılacak işlemler
+                Console.WriteLine("Veritabanı hatası: " + ex.Message);
+                // İstediğiniz gibi hata işleme stratejisini buraya ekleyin
+                throw; // Hatanın daha yukarıya fırlatılması, işlemi kullanan kodun uygun şekilde işlem yapmasını sağlar
+            }
         }
     }
 }

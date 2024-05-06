@@ -1,12 +1,11 @@
 ﻿using AdManage.Application.Features.CQRS.Commands;
 using AdManage.Application.Features.CQRS.Handlers;
-using AdManageWeb.Controllers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdManageWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class BronzePackagesControler : Controller
+    public class BronzeController : Controller
     {
         private readonly CreateBronzeCommandHandler _createBronzeCommandHandler;
         private readonly GetBronzeByIdQueryHandler _getBronzeByIdQueryHandler;
@@ -14,7 +13,7 @@ namespace AdManageWeb.Areas.Admin.Controllers
         private readonly UpdateBronzeCommandHandler _updateBronzeCommandHandler;
         private readonly RemoveBronzeCommandHandler _removeBronzeCommandHandler;
 
-        public BronzePackagesControler(CreateBronzeCommandHandler createBronzeCommandHandler, GetBronzeByIdQueryHandler getBronzeByIdQueryHandler, GetBronzeQueryHandler getBronzeQueryHandler, UpdateBronzeCommandHandler updateBronzeCommandHandler, RemoveBronzeCommandHandler removeBronzeCommandHandler)
+        public BronzeController(CreateBronzeCommandHandler createBronzeCommandHandler, GetBronzeByIdQueryHandler getBronzeByIdQueryHandler, GetBronzeQueryHandler getBronzeQueryHandler, UpdateBronzeCommandHandler updateBronzeCommandHandler, RemoveBronzeCommandHandler removeBronzeCommandHandler)
         {
             _createBronzeCommandHandler = createBronzeCommandHandler;
             _getBronzeByIdQueryHandler = getBronzeByIdQueryHandler;
@@ -22,7 +21,7 @@ namespace AdManageWeb.Areas.Admin.Controllers
             _updateBronzeCommandHandler = updateBronzeCommandHandler;
             _removeBronzeCommandHandler = removeBronzeCommandHandler;
         }
-
+        
         public async Task<IActionResult> Index()
         {
             var bronzePackages = await _getBronzeQueryHandler.Handle();
@@ -50,7 +49,7 @@ namespace AdManageWeb.Areas.Admin.Controllers
         public async Task<IActionResult> AddBronze(CreateBronzeCommand command)
         {
             await _createBronzeCommandHandler.Handle(command);
-            return RedirectToAction("Index");
+            return RedirectToAction("Bronze/Index", "Admin");
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBronze(int id)
@@ -60,3 +59,4 @@ namespace AdManageWeb.Areas.Admin.Controllers
         }
     }
 }
+

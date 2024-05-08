@@ -49,13 +49,25 @@ namespace AdManageWeb.Areas.Admin.Controllers
         public async Task<IActionResult> AddBronze(CreateBronzeCommand command)
         {
             await _createBronzeCommandHandler.Handle(command);
-            return RedirectToAction("Bronze/Index", "Admin");
+            return RedirectToAction("Bronze", "Admin");
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBronze(int id)
         {
             await _removeBronzeCommandHandler.Handle(new RemoveBronzeCommand(id));
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult UpdateBronze()
+        {
+            return View();
+        }
+        [HttpPut]        
+        public async Task<IActionResult> UpdateBronze(UpdateBronzeCommand command)
+        {
+            await _updateBronzeCommandHandler.Handle(command);
+            return RedirectToAction("Bronze", "Admin");
         }
     }
 }

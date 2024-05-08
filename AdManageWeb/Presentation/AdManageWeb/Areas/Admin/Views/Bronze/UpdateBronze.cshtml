@@ -1,11 +1,11 @@
 ﻿@model AdManage.Domain.Entities.BronzePackages
 @{
-    ViewData["Title"] = "AddBronze";
+    ViewData["Title"] = "UpdateBronze";
     Layout = "~/Views/Shared/_AdminUILayout.cshtml";
 }
-
-<h1>Yeni Paket Oluşturma Sayfası</h1>
-<form method="post" action="/Admin/Bronze/AddBronze">
+<h1>Rota Güncelleme Sayfası</h1>
+<form method="post" action="/Admin/Bronze/UpdateBronze">
+    @Html.HiddenFor(x => x.Id)
     <div class="form-group">
         @Html.Label("Paket Adı")
         <input type="text" name="Description" asp-for="Description" class="form-control" />
@@ -28,24 +28,19 @@
     <br />
     <div class="form-group">
         @Html.Label("Görsel 2")
-        <input type="text" name="Image2" asp-for="Image2" class="form-control" />
+        <input type="text" asp-for="Image2" class="form-control" />
     </div>
     <br />
     <div class="form-group">
         @Html.Label("Detay 1")
-        <textarea cols="30" rows="5" class="form-control" name="Details1" asp-for="Details1"></textarea>
+        <textarea cols="30" rows="5" class="form-control" asp-for="Details1"></textarea>
     </div>
     <br />
     <div class="form-group">
         @Html.Label("Detay 2")
-        <textarea cols="30" rows="5" class="form-control" name="Details2" asp-for="Details2"></textarea>
+        <textarea cols="30" rows="5" class="form-control" asp-for="Details2"></textarea>
     </div>
-    <button class="btn btn-outline-primary">Oluştur</button>
+    <button class="btn btn-outline-primary">Güncelle</button>
     <br />
 </form>
-<script>
-    window.onload = (function () {
-        alert('Rezervasyonunuz başlangıçta onay bekliyor şeklinde alınacaktır.Rezervasyon onaylanma süreci için "Güncel Rezervasyonlarım" menusunu takip etmeyi unutmayın.');
-    });</script>
-
 

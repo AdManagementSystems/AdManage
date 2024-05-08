@@ -1,4 +1,5 @@
 ﻿@model AdManage.Domain.Entities.BronzePackages
+
 @{
     ViewData["Title"] = "UpdateBronze";
     Layout = "~/Views/Shared/_AdminUILayout.cshtml";
@@ -7,40 +8,40 @@
 <form method="post" action="/Admin/Bronze/UpdateBronze">
     @Html.HiddenFor(x => x.Id)
     <div class="form-group">
-        @Html.Label("Paket Adı")
+        @Html.LabelFor(x => x.Description, "Paket Adı")
         <input type="text" name="Description" asp-for="Description" class="form-control" />
     </div>
     <br />
     <div class="form-group">
-        @Html.Label("Fiyat")
+        @Html.LabelFor(x => x.Price, "Fiyat")
         <input type="text" name="Price" asp-for="Price" class="form-control" />
     </div>
     <br />
     <div class="form-group">
-        @Html.Label("Ana Görsel")
+        @Html.LabelFor(x => x.Image, "Ana Görsel")
         <input type="text" name="Image" asp-for="Image" class="form-control" />
     </div>
     <br />
     <div class="form-group">
-        @Html.Label("Kapak Görseli")
+        @Html.LabelFor(x => x.CoverImage, "Kapak Görseli")
         <input type="text" name="CoverImage" asp-for="CoverImage" class="form-control" />
     </div>
     <br />
     <div class="form-group">
         @Html.Label("Görsel 2")
-        <input type="text" asp-for="Image2" class="form-control" />
+        <input type="text" name="Image2" asp-for="Image2" class="form-control" />
     </div>
     <br />
     <div class="form-group">
-        @Html.Label("Detay 1")
-        <textarea cols="30" rows="5" class="form-control" asp-for="Details1"></textarea>
+        @Html.LabelFor(x => x.Details1, "Detay 1")
+        <textarea cols="30" rows="5" class="form-control" name="Details1" asp-for="Details1"></textarea>
     </div>
     <br />
     <div class="form-group">
-        @Html.Label("Detay 2")
-        <textarea cols="30" rows="5" class="form-control" asp-for="Details2"></textarea>
+        @Html.LabelFor(x => x.Details2, "Detay 2")
+        <textarea cols="30" rows="5" class="form-control" name="Details2" asp-for="Details2"></textarea>
     </div>
-    <button class="btn btn-outline-primary">Güncelle</button>
+    <br />
+    <button type="submit" class="btn btn-outline-primary">Güncelle</button>
     <br />
 </form>
-

@@ -25,7 +25,7 @@ namespace AdManageWeb
 
 
 
-            builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<AdManageDbContext>().AddErrorDescriber<CustomIdentityValidator>().AddTokenProvider<DataProtectorTokenProvider<User>>(TokenOptions.DefaultProvider).AddEntityFrameworkStores<AdManageDbContext>();
+            builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AdManageDbContext>().AddErrorDescriber<CustomIdentityValidator>().AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider).AddEntityFrameworkStores<AdManageDbContext>();
 
 
             // Diğer servisleri ekleyin

@@ -63,9 +63,10 @@ namespace AdManageWeb.Areas.Admin.Controllers
         {
             return View();
         }
-        [HttpPut]        
+        [HttpPost]        
         public async Task<IActionResult> UpdateBronze(UpdateBronzeCommand command)
         {
+            command.Id = command.Id;
             await _updateBronzeCommandHandler.Handle(command);
             return RedirectToAction("Bronze", "Admin");
         }

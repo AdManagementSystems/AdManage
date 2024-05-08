@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AdManage.Domain.Entities
 {
-    public class Role: IdentityRole<Guid>
+    public class AppRole : IdentityRole<int>
     {
     }
 }

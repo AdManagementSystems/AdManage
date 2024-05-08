@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace AdManage.Persistence.DbContexts
 {
-    public class AdManageDbContext : IdentityDbContext<User, Role, Guid>
+    public class AdManageDbContext : IdentityDbContext<AppUser, AppRole, int>
     {
         public AdManageDbContext()
         : base()

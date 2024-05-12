@@ -1,11 +1,11 @@
-﻿@model AdManage.Domain.Entities.BronzePackages
+﻿@model AdManage.Domain.Entities.GoldPackages
 @{
-    ViewData["Title"] = "AddBronze";
+    ViewData["Title"] = "AddGold";
     Layout = "~/Views/Shared/_AdminUILayout.cshtml";
 }
 
-<h1>Yeni Bronz Paket Oluşturma Sayfası</h1>
-<form method="post" action="/Admin/Bronze/AddBronze">
+<h1>Yeni Altın Paket Oluşturma Sayfası</h1>
+<form method="post" action="/Admin/Gold/AddGold">
     <div class="form-group">
         @Html.Label("Paket Adı")
         <input type="text" name="Description" asp-for="Description" class="form-control" />
@@ -47,5 +47,4 @@
     window.onload = (function () {
         alert('Rezervasyonunuz başlangıçta onay bekliyor şeklinde alınacaktır.Rezervasyon onaylanma süreci için "Güncel Rezervasyonlarım" menusunu takip etmeyi unutmayın.');
     });</script>
-
 

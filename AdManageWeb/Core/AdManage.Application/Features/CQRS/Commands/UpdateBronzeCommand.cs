@@ -8,7 +8,7 @@ namespace AdManage.Application.Features.CQRS.Commands
 {
     public class UpdateBronzeCommand
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
         public string Description { get; set; }
         public long Price { get; set; }
         public string Image { get; set; }

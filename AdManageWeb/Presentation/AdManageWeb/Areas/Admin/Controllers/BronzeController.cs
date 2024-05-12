@@ -51,11 +51,11 @@ namespace AdManageWeb.Areas.Admin.Controllers
             await _createBronzeCommandHandler.Handle(command);
             return RedirectToAction("Bronze", "Admin");
         }
-        [HttpDelete("{id}")]
+
         public async Task<IActionResult> DeleteBronze(int id)
         {
             await _removeBronzeCommandHandler.Handle(new RemoveBronzeCommand(id));
-            return RedirectToAction("Index");
+            return RedirectToAction("Bronze","Admin");
         }
 
         [HttpGet]
@@ -64,9 +64,9 @@ namespace AdManageWeb.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]        
-        public async Task<IActionResult> UpdateBronze(UpdateBronzeCommand command)
+        public async Task<IActionResult> UpdateBronze(int id,UpdateBronzeCommand command)
         {
-            command.Id = command.Id;
+            command.Id = id;
             await _updateBronzeCommandHandler.Handle(command);
             return RedirectToAction("Bronze", "Admin");
         }

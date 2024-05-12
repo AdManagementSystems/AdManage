@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace AdManage.Domain.Common
 {
     public class PackagesEntityBase
     {
+        [Key]
         public int Id { get; set; }
         public string Description { get; set; }
         public long Price { get; set; }

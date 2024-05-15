@@ -99,9 +99,10 @@ namespace AdManageWeb
 
             app.UseEndpoints(endpoints =>
             {
+               
                 endpoints.MapControllerRoute(
-                  name: "admin",
-                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                  name: "UserProcedures",
+                  pattern: "{area:exists}/{controller=Login}/{action=Login}/{id?}");
             });
 
             //app.MapRazorPages();

@@ -5,23 +5,23 @@ namespace AdManage.Models
 	public class UserRegistorViewModel
 	{
 		[Required(ErrorMessage = "Lütfen Adınızı Giriniz")]
-		public string Name { get; set; } = "yusuf";
+		public string Name { get; set; } 
 
 		[Required(ErrorMessage = "Lütfen Soyadınızı Giriniz")]
-		public string SurName { get; set; } = "Aras";
+		public string SurName { get; set; } 
 
 		[Required(ErrorMessage = "Lütfen Kullanıcı Adınızı Giriniz")]
-		public string UserName { get; set; } = "yusuf";
+		public string UserName { get; set; }
 
 		[Required(ErrorMessage = "Lütfen mail adresinizi Giriniz")]
-		public string Mail { get; set; } = "yusuf@gmail.com";
+		public string Mail { get; set; } 
 
 		[Required(ErrorMessage = "Lütfen şifrenizi Giriniz")]
-		public string Password { get; set; } = "Yusuf.123";
+		public string Password { get; set; } 
 
 		[Required(ErrorMessage = "Lütfen şifrenizi tekrar Giriniz")]
 		[Compare("Password", ErrorMessage = "Şifreler uyumlu değil")]
-		public string ConifrmPassword { get; set; } = "Yusuf.123";
+		public string ConifrmPassword { get; set; } 
 
 
 	}

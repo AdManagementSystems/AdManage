@@ -54,26 +54,26 @@ Author URL: http://w3layouts.com
 						<h4>Bize Katılın</h4>
 						<p>Hemen Ücretsiz Hesap Oluşturun...</p>
 					</div>
-					<form method="post" class="signin-form">
+					<form method="post" class="signin-form" action="/UserProcedures/Login/Register">
 						<div class="form-input">
 							<label>Adınız</label>
-							<input type="text"  asp-for="Name" />
+							<input type="text"  name="Name" asp-for="Name" />
 							<span asp-validation-for="Name" class="text-danger"></span>
 						</div>
 						<div class="form-input">
 							<label>Soyadınız</label>
-							<input type="text" asp-for="SurName" />
+							<input type="text"name="SurName" asp-for="SurName" />
 							<span asp-validation-for="SurName" class="text-danger"></span>
 						</div>
 						<div class="form-input">
 							<label>Kullanıcı Adınız</label>
-							<input type="text" asp-for="UserName" />
+							<input type="text"name="UserName" asp-for="UserName" />
 							<span asp-validation-for="UserName" class="text-danger"></span>
 						</div>
 
 						<div class="form-input">
 							<label>Email</label>
-							<input type="email" asp-for="Mail" />
+							<input type="email" name="Mail" asp-for="Mail" />
 							<span asp-validation-for="Mail" class="text-danger"></span>
 						</div>
 

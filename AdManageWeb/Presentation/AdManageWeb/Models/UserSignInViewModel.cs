@@ -11,9 +11,3 @@ namespace AdManage.Models
 		public string Password { get; set; }
 	}
 }
-namespace AdManageWeb.Models
-{
-	public class UserSignInViewModel
-	{
-	}
-}

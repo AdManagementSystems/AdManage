@@ -23,7 +23,7 @@ namespace AdManageWeb.Areas.Admin.Controllers
         }
         
         public async Task<IActionResult> Index()
-        {
+        {   
             var bronzePackages = await _getBronzeQueryHandler.Handle();
             var bronzePackagesList = bronzePackages.Select(result => new AdManage.Domain.Entities.BronzePackages
             {
@@ -63,10 +63,11 @@ namespace AdManageWeb.Areas.Admin.Controllers
         {
             return View();
         }
+
         [HttpPost]        
-        public async Task<IActionResult> UpdateBronze(int id,UpdateBronzeCommand command)
+        public async Task<IActionResult> UpdateBronze(UpdateBronzeCommand command)
         {
-            command.Id = id;
+            
             await _updateBronzeCommandHandler.Handle(command);
             return RedirectToAction("Bronze", "Admin");
         }

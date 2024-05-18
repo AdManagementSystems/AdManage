@@ -41,7 +41,8 @@ namespace AdManageWeb.Areas.Register.Controllers
 
 				if (result.Succeeded)
 				{
-					return RedirectToAction("SignIn");
+					
+					return Redirect("/UserProcedures/Login/Login");
 				}
 				else
 				{
@@ -62,6 +63,8 @@ namespace AdManageWeb.Areas.Register.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Login(UserSignInViewModel p)
 		{
+			
+
 			if (ModelState.IsValid)
 			{
 				var result = await _SignInManager.PasswordSignInAsync(p.UserName, p.Password, false, true);
@@ -71,10 +74,10 @@ namespace AdManageWeb.Areas.Register.Controllers
 				}
 				else
 				{
-					return RedirectToAction("SignIn", "Login");
+					return Redirect("/UserProcedures/Login/Login");
 				}
 			}
-			return View();
+			return View(p);
 		}
 	}
 }

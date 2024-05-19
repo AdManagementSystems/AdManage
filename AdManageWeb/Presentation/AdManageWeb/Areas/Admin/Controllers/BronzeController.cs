@@ -59,15 +59,26 @@ namespace AdManageWeb.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult UpdateBronze()
-        {
-            return View();
+		public async Task<IActionResult> UpdateBronze(int id)
+		{
+			var bronzePackages = await _getBronzeQueryHandler.Handle();
+			var bronzePackagesList = bronzePackages.Select(result => new AdManage.Domain.Entities.BronzePackages
+			{
+				Id = result.Id,
+				Description = result.Description,
+				Price = result.Price,
+				Image = result.Image,
+				CoverImage = result.CoverImage,
+				Details1 = result.Details1,
+				Details2 = result.Details2,
+				Image2 = result.Image2
+			}).ToList().FirstOrDefault((result => result.Id == id));
+			return View(bronzePackagesList);
         }
 
         [HttpPost]        
         public async Task<IActionResult> UpdateBronze(UpdateBronzeCommand command)
         {
-            
             await _updateBronzeCommandHandler.Handle(command);
             return RedirectToAction("Bronze", "Admin");
         }

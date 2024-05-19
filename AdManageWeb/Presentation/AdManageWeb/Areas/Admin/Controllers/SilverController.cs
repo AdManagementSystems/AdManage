@@ -59,9 +59,21 @@ namespace AdManageWeb.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult UpdateSilver()
+        public async Task<IActionResult> UpdateSilver(int id)
         {
-            return View();
+            var bronzePackages = await _getSilverQueryHandler.Handle();
+            var bronzePackagesList = bronzePackages.Select(result => new AdManage.Domain.Entities.SilverPackages
+            {
+                Id = result.Id,
+                Description = result.Description,
+                Price = result.Price,
+                Image = result.Image,
+                CoverImage = result.CoverImage,
+                Details1 = result.Details1,
+                Details2 = result.Details2,
+                Image2 = result.Image2
+            }).ToList().FirstOrDefault((result => result.Id == id));
+            return View(bronzePackagesList);
         }
         [HttpPost]
         public async Task<IActionResult> UpdateSilver(int id, UpdateSilverCommand command)

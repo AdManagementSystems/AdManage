@@ -58,14 +58,26 @@ namespace AdManageWeb.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult UpdateGold()
+		public async Task<IActionResult> UpdateGold(int id)
+		{
+			var goldPackages = await _getGoldQueryHandler.Handle();
+			var goldPackagesList = goldPackages.Select(result => new AdManage.Domain.Entities.GoldPackages
+			{
+				Id = result.Id,
+				Description = result.Description,
+				Price = result.Price,
+				Image = result.Image,
+				CoverImage = result.CoverImage,
+				Details1 = result.Details1,
+				Details2 = result.Details2,
+				Image2 = result.Image2
+			}).ToList().FirstOrDefault((result => result.Id == id));
+			return View(goldPackagesList);
+		}
+		[HttpPost]
+        public async Task<IActionResult> UpdateGold(UpdateGoldCommand command)
         {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> UpdateGold(int id, UpdateGoldCommand command)
-        {
-            command.Id = id;
+            
             await _updateGoldCommandHandler.Handle(command);
             return RedirectToAction("Gold", "Admin");
         }

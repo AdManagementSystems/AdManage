@@ -19,14 +19,6 @@ namespace AdManageWeb
             // DbContext'i ekleyin
             builder.Services.AddDbContext<AdManageDbContext>();
 
-			// Identity servislerini ekleyin ve kullanıcı/rol depolama için DbContext'i belirtin
-			//builder.Services.AddDefaultIdentity<IdentityUser>()
-			//    .AddEntityFrameworkStores<AdManageDbContext>();
-
-
-
-			//builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AdManageDbContext>().AddErrorDescriber<CustomIdentityValidator>().AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider).AddEntityFrameworkStores<AdManageDbContext>();
-
 			builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AdManageDbContext>().AddErrorDescriber<CustomIdentityValidator>().AddEntityFrameworkStores<AdManageDbContext>();
 
 

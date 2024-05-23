@@ -1,12 +1,13 @@
-﻿using System;
+﻿using AdManage.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdManage.Domain.Entities
+namespace AdManage.Application.Features.CQRS.Results
 {
-    public class Reservation
+    public class GetReservationByIdQueryResult
     {
         public int ReservationId { get; set; }
         public DateTime ReservationDate { get; set; }

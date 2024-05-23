@@ -28,6 +28,7 @@ namespace AdManage.Persistence.DbContexts
         public DbSet<SilverPackages> SilverPackages { get; set; }
         public DbSet<AppRole> AppRole { get; set; }
         public DbSet<AppUser> AppUser { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
     }
   
 }

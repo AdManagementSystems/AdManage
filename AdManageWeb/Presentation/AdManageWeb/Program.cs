@@ -63,6 +63,12 @@ namespace AdManageWeb
             builder.Services.AddScoped<CreateSilverCommandHandler>();
             builder.Services.AddScoped<UpdateSilverCommandHandler>();
             builder.Services.AddScoped<RemoveSilverCommandHandler>();
+            
+            builder.Services.AddScoped(typeof(IReservationRepository), typeof(ReservationRepository));
+
+            builder.Services.AddScoped<GetReservationQueryHandler>();
+            builder.Services.AddScoped<GetReservationByIdQueryHandler>();
+            builder.Services.AddScoped<CreateReservationCommandHandler>();
 
             var app = builder.Build();
 

@@ -1,4 +1,5 @@
-﻿
+﻿@model AdManage.Domain.Entities.Reservation
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_UILayout.cshtml";
@@ -44,16 +45,28 @@
                     <h2 class="title">Reklam ilanı vermek için doldurunuz</h2>
                 </div>
                 <div class="card-body">
-                    <form method="POST">
+                    <form method="post" action="/Member/Sell/Index">
 
-                        <div class="form-row">
+                        <div class="form-group">
+                            @Html.Label("Reklam Başlığı")
+                            <input type="text" name="Title" asp-for="Title" class="form-control" />
+                        </div>
+                        <br />
+                        <div class="form-group">
+                            @Html.Label("Kampanyanızdan Bahsedin")
+                            <input type="text" name="Description" asp-for="Description" class="form-control" />
+                        </div>
+                        <br />
+
+
+                        @* <div class="form-row">
                             <div class="name">Reklam Basliği</div>
                             <div class="value">
                                 <div class="input-group">
                                     <input class="input--style-5" type="text" name="company">
                                 </div>
                             </div>
-                        </div>
+                        </div> *@@* 
                         <div class="form-row">
                             <div class="name">Kampanyanızdan Bahsedin</div><br />
                             <div class="value">
@@ -61,7 +74,7 @@
                                     <textarea class="input--style-5" name="company" rows="4"></textarea>
                                 </div>
                             </div>
-                        </div>
+                        </div> *@@* 
                         <div class="form-row">
                             <div class="name">Email</div>
                             <div class="value">
@@ -69,7 +82,7 @@
                                     <input class="input--style-5" type="email" name="email">
                                 </div>
                             </div>
-                        </div>
+                        </div> *@@* 
                         <div class="form-row m-b-55">
                             <div class="name">Telefon</div>
                             <div class="value">
@@ -88,7 +101,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>@* 
+                        </div> *@@* 
                         <div class="form-row">
                             <div class="name">Paket Seçiniz</div>
                             <div class="value">

@@ -46,7 +46,7 @@
                 </div>
                 <div class="card-body">
                     <form method="post" action="/Member/Sell/Index">
-
+                        <input type="hidden" name="AppUserId" value="3" />
                         <div class="form-group">
                             @Html.Label("Reklam Başlığı")
                             <input type="text" name="Title" asp-for="Title" class="form-control" />

@@ -66,7 +66,7 @@ namespace AdManageWeb.Areas.Register.Controllers
 			
 
 			if (ModelState.IsValid)
-			{
+			{   
 				var result = await _SignInManager.PasswordSignInAsync(p.UserName, p.Password, false, true);
 				if (result.Succeeded)
 				{

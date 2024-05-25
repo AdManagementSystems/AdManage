@@ -13,6 +13,7 @@ namespace AdManage.Application.Features.CQRS.Commands
         public DateTime ReservationDate { get; set; }=DateTime.Now;
         public string Title { get; set; }
         public string Description { get; set; }
+        public int AppUserId { get; set; } 
         public AppUser AppUser { get; set; }
         public int? BronzePackagesId { get; set; }
         public int? GoldPackagesId { get; set; }

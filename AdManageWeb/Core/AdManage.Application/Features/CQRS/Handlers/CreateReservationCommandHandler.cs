@@ -26,6 +26,7 @@ namespace AdManage.Application.Features.CQRS.Handlers
                 Title=command.Title,
                 Description=command.Description,
                 AppUser=command.AppUser,
+                AppUserId=command.AppUserId,
                 BronzePackages=command.BronzePackages,
                 GoldPackages=command.GoldPackages,
                 SilverPackages=command.SilverPackages,

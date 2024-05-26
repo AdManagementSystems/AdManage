@@ -1,9 +1,11 @@
 ﻿using AdManage.Application.Features.CQRS.Handlers;
+using AdManage.Application.Interfaces;
+using AdManage.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdManageWeb.Controllers
 {
-    public class SilverPackagesController : Controller
+    public class SilverPackagesController : Controller, ISilverPackageObserver
     {
         private readonly CreateSilverCommandHandler _createSilverCommandHandler;
         private readonly GetSilverByIdQueryHandler _getSilverByIdQueryHandler;
@@ -11,13 +13,27 @@ namespace AdManageWeb.Controllers
         private readonly UpdateSilverCommandHandler _updateSilverCommandHandler;
         private readonly RemoveSilverCommandHandler _removeSilverCommandHandler;
 
-        public SilverPackagesController(CreateSilverCommandHandler createSilverCommandHandler, GetSilverByIdQueryHandler getSilverByIdQueryHandler, GetSilverQueryHandler getSilverQueryHandler, UpdateSilverCommandHandler updateSilverCommandHandler, RemoveSilverCommandHandler removeSilverCommandHandler)
+        private readonly ISilverPackagesStrategy _silverPackagesStrategy;
+
+        public SilverPackagesController(
+            CreateSilverCommandHandler createSilverCommandHandler,
+            GetSilverByIdQueryHandler getSilverByIdQueryHandler,
+            GetSilverQueryHandler getSilverQueryHandler,
+            UpdateSilverCommandHandler updateSilverCommandHandler,
+            RemoveSilverCommandHandler removeSilverCommandHandler,
+            ISilverPackagesStrategy silverPackagesStrategy)
         {
             _createSilverCommandHandler = createSilverCommandHandler;
             _getSilverByIdQueryHandler = getSilverByIdQueryHandler;
             _getSilverQueryHandler = getSilverQueryHandler;
             _updateSilverCommandHandler = updateSilverCommandHandler;
             _removeSilverCommandHandler = removeSilverCommandHandler;
+            _silverPackagesStrategy = silverPackagesStrategy;
+        }
+
+        public void Update(SilverPackages silverPackage)
+        {
+            Console.WriteLine($"Gümüş paket fiyatı güncellendi: {silverPackage.Price}");
         }
 
         public async Task<IActionResult> Index()
@@ -37,6 +53,14 @@ namespace AdManageWeb.Controllers
 
             return View(SilverPackagesList);
         }
+
+        public async Task<IActionResult> PackagesSilver()
+        {
+            var silverPackages = await _silverPackagesStrategy.GetSilverPackages();
+
+            return View(silverPackages);
+        }
     }
 }
+
 

@@ -23,4 +23,8 @@
     <ProjectReference Include="..\..\Core\AdManage.Domain\AdManage.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Observer\" />
+  </ItemGroup>
+
 </Project>

@@ -7,6 +7,11 @@ using AdManage.Persistence.DbContexts;
 using AdManage.Persistence.Repositories;
 using AdManage.Domain.Entities;
 using AdManageWeb.Models;
+using AdManage.Application.Services;
+using AdManage.Persistence.Factories;
+using AdManage.Application.Adapters;
+using AdManage.Persistence.Decorators;
+using AdManage.Persistence.Strategies;
 
 namespace AdManageWeb
 {
@@ -48,6 +53,17 @@ namespace AdManageWeb
             builder.Services.AddScoped<UpdateBronzeCommandHandler>();
             builder.Services.AddScoped<RemoveBronzeCommandHandler>();
 
+            builder.Services.AddTransient<MsSqlBronzeRepository>();
+            builder.Services.AddTransient<IBronzeRepository, MsSqlBronzeRepositoryAdapter>();
+            builder.Services.AddTransient<MsSqlBronzeRepositoryAdapter>();
+            builder.Services.AddTransient<IBronzeRepository>(serviceProvider =>
+            {
+                var inner = serviceProvider.GetRequiredService<MsSqlBronzeRepositoryAdapter>();
+                var logger = serviceProvider.GetRequiredService<ILogger<BronzeRepositoryWithLogging>>();
+                return new BronzeRepositoryWithLogging(inner, logger);
+            });
+
+
             builder.Services.AddScoped(typeof(IGoldRepository), typeof(GoldRepository));
 
             builder.Services.AddScoped<GetGoldQueryHandler>();
@@ -55,6 +71,8 @@ namespace AdManageWeb
             builder.Services.AddScoped<CreateGoldCommandHandler>();
             builder.Services.AddScoped<UpdateGoldCommandHandler>();
             builder.Services.AddScoped<RemoveGoldCommandHandler>();
+            builder.Services.AddTransient<IRepositoryFactory, RepositoryFactory>();
+            builder.Services.AddTransient<IAdManagementService, AdManagementService>();
 
             builder.Services.AddScoped(typeof(ISilverRepository), typeof(SilverRepository));
 
@@ -63,7 +81,11 @@ namespace AdManageWeb
             builder.Services.AddScoped<CreateSilverCommandHandler>();
             builder.Services.AddScoped<UpdateSilverCommandHandler>();
             builder.Services.AddScoped<RemoveSilverCommandHandler>();
-            
+
+            builder.Services.AddScoped<ISilverPackagesStrategy, DefaultSilverPackagesStrategy>();
+            builder.Services.AddScoped<ISilverPackagesStrategy, SpecialOfferSilverPackagesStrategy>();
+            builder.Services.AddScoped<GetSilverQueryHandler>();
+
             builder.Services.AddScoped(typeof(IReservationRepository), typeof(ReservationRepository));
 
             builder.Services.AddScoped<GetReservationQueryHandler>();

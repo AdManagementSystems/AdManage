@@ -11,6 +11,7 @@ namespace AdManage.Application.Interfaces
     public interface IGoldRepository
     {
         Task<List<GoldPackages>> GetGoldListWithPackages();
+        Task<List<GoldPackages>> GetGoldListWithPackages2();
         List<GoldPackages> GetLast5GoldWithPackages();
         int GetGoldCount();
     }

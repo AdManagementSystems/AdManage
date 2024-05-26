@@ -29,6 +29,13 @@ namespace AdManage.Persistence.Repositories
             return values;
         }
 
+        public async Task<List<GoldPackages>> GetGoldListWithPackages2()
+        {
+            var values = await _context.GoldPackages.ToListAsync();
+            return values;
+        }
+
+
         public List<GoldPackages> GetLast5GoldWithPackages()
         {
             var values = _context.GoldPackages.Include(x => x.Description).OrderByDescending(x => x.Id).Take(5).ToList();

@@ -21,7 +21,7 @@ namespace AdManage.Persistence.DbContexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=localhost;Database=OnionAdManageDb;Integrated Security=true;TrustServerCertificate=true;");
+            optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=OnionAdManageDb;User Id=testDbUser;Password=8520;TrustServerCertificate=True");
         }
         public DbSet<BronzePackages> BronzePackages { get; set; }
         public DbSet<GoldPackages> GoldPackages { get; set; }

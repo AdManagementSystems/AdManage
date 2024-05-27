@@ -12,6 +12,11 @@ using AdManage.Persistence.Factories;
 using AdManage.Application.Adapters;
 using AdManage.Persistence.Decorators;
 using AdManage.Persistence.Strategies;
+using NServiceBus;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Hosting;
+using AdManage.Persistence.Real_Time_Communication;
 
 namespace AdManageWeb
 {
@@ -40,6 +45,7 @@ namespace AdManageWeb
                         .AllowCredentials();
                 });
             });
+            builder.Services.AddSignalR();
 
             // Repository ve Handler'ları ekleyin
             builder.Services.AddScoped<AdManageDbContext>();
@@ -73,7 +79,7 @@ namespace AdManageWeb
             builder.Services.AddScoped<RemoveGoldCommandHandler>();
             builder.Services.AddTransient<IRepositoryFactory, RepositoryFactory>();
             builder.Services.AddTransient<IAdManagementService, AdManagementService>();
-
+            
             builder.Services.AddScoped(typeof(ISilverRepository), typeof(SilverRepository));
 
             builder.Services.AddScoped<GetSilverQueryHandler>();
@@ -93,6 +99,34 @@ namespace AdManageWeb
             builder.Services.AddScoped<CreateReservationCommandHandler>();
 
             var app = builder.Build();
+
+            //-------------------------------------------------------------------------------------
+            static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Program>();
+            })
+            .UseNServiceBus(context =>
+            {
+                var endpointConfiguration = new EndpointConfiguration("AdManageWeb");
+                endpointConfiguration.UseTransport<LearningTransport>();
+                endpointConfiguration.SendFailedMessagesTo("error");
+                endpointConfiguration.AuditProcessedMessagesTo("audit");
+                endpointConfiguration.SendOnly();
+
+                return endpointConfiguration;
+            })
+            .ConfigureServices(services =>
+            {
+                services.AddSingleton<IMessageSession>(provider =>
+                {
+                    var endpointInstance = provider.GetRequiredService<IEndpointInstance>();
+                    return endpointInstance;
+                });
+            });
+            //-------------------------------------------------------------------------------------
+
 
             // Middleware'leri yapılandırın
             if (app.Environment.IsDevelopment())
@@ -126,6 +160,9 @@ namespace AdManageWeb
                   name: "UserProcedures",
                   pattern: "{area:exists}/{controller=Login}/{action=Login}/{id?}");
             });
+            
+
+            app.MapHub<AdvertisementsHub>("/AdManageWebHub");
 
             //app.MapRazorPages();
 

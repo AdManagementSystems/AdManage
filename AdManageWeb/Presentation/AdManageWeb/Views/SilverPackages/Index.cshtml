@@ -4,6 +4,32 @@
     Layout = "~/Views/Shared/_UILayout.cshtml";
 }
 
+<!-- Eklemek için gerekli JavaScript dosyaları -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.12/signalr.min.js"></script>
+
+<!-- SignalR bağlantısı ve reklam güncelleme işlevi -->
+<script>
+    $(document).ready(function () {
+        // SignalR bağlantısı oluşturma
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/adManageHub")
+            .build();
+
+        // Reklam güncelleme işlevi
+        connection.on("ReceiveAdvertisementUpdate", function (advertisementId, newContent) {
+            // Reklamın güncellenmesi durumunda yapılacak işlemler
+            console.log("Reklam Güncellendi: ID=" + advertisementId + ", İçerik=" + newContent);
+
+            // Reklamı güncelleyen kodu buraya ekleyin, örneğin:
+            // $("#advertisement_" + advertisementId).html(newContent);
+        });
+
+        // SignalR bağlantısını başlatma
+        connection.start().catch(err => console.error(err.toString()));
+    });
+</script>
+
 <section class="grids-1 py-5">
     <div class="container py-md-5">
         <div class="title-content text-left mb-lg-5 mb-4">

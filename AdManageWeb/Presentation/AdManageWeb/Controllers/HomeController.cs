@@ -17,7 +17,7 @@ namespace AdManageWeb.Controllers
 		{
 			return View();
 		}
-        public IActionResult Test()
+        public IActionResult Test() //TODO REAL TIME COMMUNICATION - CHAT APP USAGE 3
         {
             return View();
         }

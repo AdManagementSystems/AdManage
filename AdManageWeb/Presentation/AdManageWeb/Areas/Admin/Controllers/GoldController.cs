@@ -1,6 +1,5 @@
 ﻿using AdManage.Application.Features.CQRS.Commands;
 using AdManage.Application.Features.CQRS.Handlers;
-using AdManage.Persistence.Enterprise_Service_Bus;
 using Microsoft.AspNetCore.Mvc;
 using NServiceBus;
 using System.Threading.Tasks;
@@ -15,16 +14,14 @@ namespace AdManageWeb.Areas.Admin.Controllers
         private readonly GetGoldQueryHandler _getGoldQueryHandler;
         private readonly UpdateGoldCommandHandler _updateGoldCommandHandler;
         private readonly RemoveGoldCommandHandler _removeGoldCommandHandler;
-        private readonly IMessageSession _messageSession;
 
-        public GoldController(CreateGoldCommandHandler createGoldCommandHandler, GetGoldByIdQueryHandler getGoldByIdQueryHandler, GetGoldQueryHandler getGoldQueryHandler, UpdateGoldCommandHandler updateGoldCommandHandler, RemoveGoldCommandHandler removeGoldCommandHandler, IMessageSession messageSession)
+        public GoldController(CreateGoldCommandHandler createGoldCommandHandler, GetGoldByIdQueryHandler getGoldByIdQueryHandler, GetGoldQueryHandler getGoldQueryHandler, UpdateGoldCommandHandler updateGoldCommandHandler, RemoveGoldCommandHandler removeGoldCommandHandler)
         {
             _createGoldCommandHandler = createGoldCommandHandler;
             _getGoldByIdQueryHandler = getGoldByIdQueryHandler;
             _getGoldQueryHandler = getGoldQueryHandler;
             _updateGoldCommandHandler = updateGoldCommandHandler;
             _removeGoldCommandHandler = removeGoldCommandHandler;
-            _messageSession = messageSession;
         }
 
         public async Task<IActionResult> Index()
@@ -54,22 +51,6 @@ namespace AdManageWeb.Areas.Admin.Controllers
         public async Task<IActionResult> AddGold(CreateGoldCommand command)
         {
             await _createGoldCommandHandler.Handle(command);
-            var message = new GoldPackageAddedMessage
-            {
-                Id = command.Id,
-                Description = command.Description,
-                Price = command.Price,
-                Image = command.Image,
-                CoverImage = command.CoverImage,
-                Details1 = command.Details1,
-                Details2 = command.Details2,
-                Image2 = command.Image2
-            };
-
-            await _messageSession.Publish(message);
-
-            // Toastr mesajını ekle
-            TempData["ToastrMessage"] = "Gold paketi başarıyla eklendi.";
             return RedirectToAction("Gold", "Admin");
         }
         public async Task<IActionResult> DeleteGold(int id)

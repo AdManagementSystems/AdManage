@@ -12,7 +12,6 @@ using AdManage.Persistence.Factories;
 using AdManage.Application.Adapters;
 using AdManage.Persistence.Decorators;
 using AdManage.Persistence.Strategies;
-using NServiceBus;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
@@ -99,34 +98,6 @@ namespace AdManageWeb
             builder.Services.AddScoped<CreateReservationCommandHandler>();
 
             var app = builder.Build();
-
-            //-------------------------------------------------------------------------------------
-            static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-                webBuilder.UseStartup<Program>();
-            })
-            .UseNServiceBus(context =>
-            {
-                var endpointConfiguration = new EndpointConfiguration("AdManageWeb");
-                endpointConfiguration.UseTransport<LearningTransport>();
-                endpointConfiguration.SendFailedMessagesTo("error");
-                endpointConfiguration.AuditProcessedMessagesTo("audit");
-                endpointConfiguration.SendOnly();
-
-                return endpointConfiguration;
-            })
-            .ConfigureServices(services =>
-            {
-                services.AddSingleton<IMessageSession>(provider =>
-                {
-                    var endpointInstance = provider.GetRequiredService<IEndpointInstance>();
-                    return endpointInstance;
-                });
-            });
-            //-------------------------------------------------------------------------------------
-
 
             // Middleware'leri yapılandırın
             if (app.Environment.IsDevelopment())
